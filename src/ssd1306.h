@@ -1,9 +1,15 @@
 #pragma once
 
 #include "util.h"
+#include "pins.h"
 
-#define SSD1306_DC 6
-#define SSD1306_CS 7
+#ifndef SSD1306_DC
+#define SSD1306_DC D6
+#endif
+
+#ifndef SSD1306_CS
+#define SSD1306_CS D7
+#endif
 
 #define DWIDTH 128
 #define DHEIGHT 64

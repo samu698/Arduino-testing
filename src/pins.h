@@ -24,6 +24,10 @@
 #define A4 MK_PIN(PORTC, 4)
 #define A5 MK_PIN(PORTC, 5)
 
+#define PIN_MOSI D11
+#define PIN_MISO D12
+#define PIN_CLK D13
+
 #define PIN_PORT(PIN) (*(volatile uint8_t*)(PIN & 0xFF))
 #define PIN_DDR(PIN) (*(volatile uint8_t*)((PIN & 0xFF) - 1))
 #define PIN_PIN(PIN) (*(volatile uint8_t*)((PIN & 0xFF) - 2))

@@ -1,11 +1,16 @@
 #include "spi.h"
-#include <avr/io.h>
+#include "pins.h"
+
+// clockSetting = 0
+// spcr = SPE | MSTR
 
 void setupSpi() {
 	uint8_t sregBak = SREG;
 	cli();
 
-	DDRB |= (1 << DDB2) & (1 << DDB3) & ( 1 << DDB5);	// set SS, MOSI, SCK as outputs
+	pinOutput(D10);
+	pinOutput(PIN_MOSI);
+	pinOutput(PIN_CLK);
 
 	SPSR |= 1 << SPI2X;	// double clock speed
 

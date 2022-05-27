@@ -2,10 +2,10 @@
 #include "spi.h"
 #include <avr/io.h>
 
-#define COMMAND_MODE() PORTD &= ~(1 << PD6)
-#define DATA_MODE() PORTD |= 1 << PD6
-#define SELECT() PORTD &= ~(1 << PD7)
-#define DESELECT() PORTD |= 1 << PD7
+#define COMMAND_MODE() pinOff(SSD1306_DC)
+#define DATA_MODE() pinOn(SSD1306_DC)
+#define SELECT() pinOff(SSD1306_CS)
+#define DESELECT() pinOff(SSD1306_CS)
 
 #define DISPLAY_OFF 0xAE
 #define SET_CLK_DIV 0xD5
@@ -31,8 +31,8 @@
 uint8_t displayBuffer[(DWIDTH * (DHEIGHT + 7)) / 8] = { 0 };
 
 void setupSsd1306() {
-	DDRD |= 1 << PD6;
-	DDRD |= 1 << PD7;
+	pinOutput(SSD1306_DC);
+	pinOutput(SSD1306_CS);
 
 	uint8_t sregBak = SREG;
 	cli();
