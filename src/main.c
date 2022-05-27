@@ -8,21 +8,22 @@
 #include "flash.h"
 #include "spi.h"
 #include "ssd1306.h"
+#include "pins.h"
 
 #include <avr/io.h>
 #include <util/delay.h>
 
 void blink_fast() {
-	PORTB |= 1 << 5;
+	pinOn(D13);
 	_delay_ms(100);
-	PORTB &= ~(1 << 5);
+	pinOff(D13);
 	_delay_ms(100);
 }
 
 void blink_slow() {
-	PORTB |= 1 << 5;
+	pinOn(D13);
 	_delay_ms(1000);
-	PORTB &= ~(1 << 5);
+	pinOff(D13);
 	_delay_ms(1000);
 }
 
