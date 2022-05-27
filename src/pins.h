@@ -29,5 +29,8 @@
 #define PIN_PIN(PIN) (*(volatile uint8_t*)((PIN & 0xFF) - 2))
 #define PIN_BIT(PIN) ((PIN >> 8) & 0xFF)
 
-#define PIN_ON(PIN) (PIN_PORT(PIN) |= (1 << PIN_BIT(PIN)))
-#define PIN_OFF(PIN) (PIN_PORT(PIN) &= ~(1 << PIN_BIT(PIN)))
+#define pinOn(PIN) (PIN_PORT(PIN) |= (1 << PIN_BIT(PIN)))
+#define pinOff(PIN) (PIN_PORT(PIN) &= ~(1 << PIN_BIT(PIN)))
+#define pinOutput(PIN) (PIN_DDR(PIN) |= (1 << PIN_BIT(PIN)))
+#define pinInput(PIN) (PIN_DDR(PIN) &= ~(1 << PIN_BIT(PIN)))
+#define pinRead(PIN) ((PIN_PIN(PIN) & PIN_BIT(PIN)) != 0)
