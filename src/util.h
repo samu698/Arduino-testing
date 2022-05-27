@@ -18,6 +18,7 @@
 #define NAKED __attribute__((naked))
 
 #define cli() asm volatile ("cli")
+#define nop() asm volatile ("nop")
 
 C_BEGIN
 void utilMemset(void* buffer, uint8_t fill, uint16_t length);
