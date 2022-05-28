@@ -18,6 +18,7 @@
 #define NAKED __attribute__((naked))
 
 #define cli() asm volatile ("cli")
+#define sei() asm volatile ("sei")
 #define nop() asm volatile ("nop")
 
 C_BEGIN
