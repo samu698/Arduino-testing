@@ -4,26 +4,23 @@
 #define URBB0_VAL (F_CPU / 8 / BAUD - 1)
 
 void setupSerial() {
-	UBRR0 = URBB0_VAL; 		// set clock timing
-	UCSR0A = 1 << U2X0; 	// set double clock speed
-	UCSR0B = 1 << TXEN0;	// enable TX
+	UBRR0 = URBB0_VAL; // Set clock timing
+	setBits(UCSR0A, bitMask(U2X0)); // Set double clock speed
+	setBits(UCSR0B, bitMask(TXEN0)); // Enable TX
 
-	/*
-	this is the default config so no need to set it
-	UCSR0C = (1 << UCSZ00) | (1 << UCSZ01); //set 8 bit frames with 1 stop bit and no parity
-	*/
+	setBits(UCSR0C, bitMask(UCSZ00) | bitMask(UCSZ01)); // Set 8 bit frames with 1 stop bit and no parity
 }
 
 void serialWrite(uint8_t byte) {
-	nop(); // just a small wait to prevent the while looping
-	while (!(UCSR0A & (1 << UDRIE0)));
+	nop(); // A small wait to prevent the while looping
+	while (!readBit(UCSR0A, UDRIE0));
 	UDR0 = byte;
 }
 
 void serialWriteBuffer(uint8_t* data, uint16_t length) {
 	for (uint16_t i = 0; i < length; i++) {
-		nop(); // just a small wait to prevent the while looping
-		while (!(UCSR0A & (1 << UDRIE0)));
+		nop(); // A small wait to prevent the while looping
+		while (!readBit(UCSR0A, UDRIE0));
 		UDR0 = data[i];
 	}
 }

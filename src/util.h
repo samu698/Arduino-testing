@@ -21,6 +21,11 @@
 #define sei() asm volatile ("sei")
 #define nop() asm volatile ("nop")
 
+#define bitMask(bit) (1 << bit)
+#define readBit(value, bit) ((value & bitMask(bit)) == 1)
+#define setBits(value, bits) (value |= bits)
+#define clearBits(value, bits) (value &= ~(bits))
+
 C_BEGIN
 void utilMemset(void* buffer, uint8_t fill, uint16_t length);
 C_END

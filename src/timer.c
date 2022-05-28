@@ -8,6 +8,7 @@
 // * * * * * * * * * *
 
 // Check if F_CPU is a multiple of 8000000
+// And if it is use the timer prescaler
 #if ((F_CPU / 8000000) * 8000000) == F_CPU
 #define USING_PRESCALER
 #define COUNTS_TO_US(x) (x * 8000000) / F_CPU
@@ -20,35 +21,35 @@ uint64_t micros;
 void timerBegin() {
 	cli();
 
-	TCCR0A &= ~((1 << COM0A0) | (1 << COM0A1)); // Set normal input timer mode
-	TCCR0A &= ~((1 << COM0B0) | (1 << COM0B1)); // Set normal output timer mode
+	clearBits(TCCR0A, bitMask(COM0A0) | bitMask(COM0A1)); // Set normal input timer mode
+	clearBits(TCCR0A, bitMask(COM0B0) | bitMask(COM0B1)); // Set normal output timer mode
 	
 	// Set no pwm output
-	TCCR0A &= ~((1 << WGM00) | (1 << WGM01));
-	TCCR0B &= ~(1 << WGM02);
+	clearBits(TCCR0A, bitMask(WGM00) | bitMask(WGM01));
+	clearBits(TCCR0B, bitMask(WGM02));
 
-	TIMSK0 |= 1 << TOIE0; // Enable the timer overflow interrupt
+	setBits(TIMSK0, bitMask(TOIE0)); // Enable the timer overflow interrupt
 
 	micros = 0;
-	TCNT0 = 0; // clear the timer register
+	TCNT0 = 0; // Clear the timer register
 
 	// Set the timer clock source
 #ifdef USING_PRESCALER
 	// clk / 8
-	TCCR0B |= 1 << CS01;
-	TCCR0B &= ~((1 << CS00) | (1 << CS02));
+	setBits(TCCR0B, bitMask(CS01));
+	clearBits(TCCR0B, bitMask(CS00) | bitMask(CS02));
 #else
 	// clk
-	TCCR0B |= 1 << CS00;
-	TCCR0B &= ~((1 << CS01) | (1 << CS02));
+	setBits(TCCR0B, bitMask(CS00));
+	clearBits(TCCR0B, bitMask(CS01) | bitMask(CS02));
 #endif
 
 	sei();
 }
 
 void timerStop() {
-	TCCR0B &= ~((1 << CS00) | (1 << CS01) | (1 << CS02));
-	TIMSK0 |= 1 << TOIE0; // disable the timer overflow interrupt
+	clearBits(TCCR0B, bitMask(CS00) | bitMask(CS01) | bitMask(CS02)); // Disable the timer
+	clearBits(TIMSK0, bitMask(TOIE0)); // Disable the timer overflow interrupt
 }
 
 uint64_t timerMicros() {
