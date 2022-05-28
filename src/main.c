@@ -26,8 +26,8 @@ void blink_slow() {
 }
 
 void GCODE gameSetup() {
-	setupSpi();
-	setupSsd1306();
+	spiSetup();
+	ssd1306Setup();
 }
 void GCODE gameUpdate(uint16_t dt) {
 	invertPixel(0, 0);
@@ -47,7 +47,7 @@ void writeHexChar(uint8_t c) {
 }
 
 int main() {
-	DDRB |= 1 << 5;
+	pinOutput(D13);
 
 	_gameSetup();
 	for (;;) _gameUpdate(0);

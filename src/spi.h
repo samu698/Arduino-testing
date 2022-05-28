@@ -7,6 +7,6 @@
 #define SPI_MODE	SPI_MODE0
 
 C_BEGIN
-void setupSpi();
+void spiSetup();
 uint8_t spiTransfer(uint8_t data);
 C_END

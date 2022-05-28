@@ -30,7 +30,7 @@
 
 uint8_t displayBuffer[(DWIDTH * (DHEIGHT + 7)) / 8] = { 0 };
 
-void setupSsd1306() {
+void ssd1306Setup() {
 	pinOutput(SSD1306_DC);
 	pinOutput(SSD1306_CS);
 

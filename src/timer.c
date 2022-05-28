@@ -18,7 +18,7 @@
 
 uint64_t micros;
 
-void timerBegin() {
+void timerSetup() {
 	cli();
 
 	clearBits(TCCR0A, bitMask(COM0A0) | bitMask(COM0A1)); // Set normal input timer mode

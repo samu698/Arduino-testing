@@ -4,7 +4,7 @@
 // clockSetting = 0
 // spcr = SPE | MSTR
 
-void setupSpi() {
+void spiSetup() {
 	uint8_t sregBak = SREG;
 	cli();
 

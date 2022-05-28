@@ -3,7 +3,7 @@
 
 #define URBB0_VAL (F_CPU / 8 / BAUD - 1)
 
-void setupSerial() {
+void serialSetup() {
 	UBRR0 = URBB0_VAL; // Set clock timing
 	setBits(UCSR0A, bitMask(U2X0)); // Set double clock speed
 	setBits(UCSR0B, bitMask(TXEN0)); // Enable TX

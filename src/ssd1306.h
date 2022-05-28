@@ -15,7 +15,7 @@
 #define DHEIGHT 64
 
 C_BEGIN
-void setupSsd1306();
+void ssd1306Setup();
 
 void setPixel(uint8_t x, uint8_t y);
 void clearPixel(uint8_t x, uint8_t y);
