@@ -4,6 +4,7 @@
 	Copying and distribution of this script, with or without modification,
 	are permitted in any medium without royalty provided the copyright
 	notice and this notice are preserved.
+	TeST
 */
 
 OUTPUT_FORMAT("elf32-avr","elf32-avr","elf32-avr")
